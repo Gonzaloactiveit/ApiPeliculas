@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>Peliculas</artifactId>
+  <groupId>ait</groupId>
+  <version>0.0.1T</version>
+
+  <packaging>war</packaging>
+  <name>Gateway Runtime Reference Content: Java Project for DevX</name>
+
+  <properties>
+    <sap.gateway.version>1.11.4</sap.gateway.version>
+    <slf4j.version>1.7.7</slf4j.version>
+  </properties>
+
+	<build>
+		<finalName>${project.artifactId}-${project.version}</finalName>
+
+		<plugins>
+			
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<annotationProcessors>
+						<annotationProcessor>
+							com.sap.cloud.sdk.service.annotationprocessor.AnnotationProcessor
+						</annotationProcessor>
+					</annotationProcessors>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>false</downloadJavadocs>
+					<wtpversion>2.0</wtpversion>
+
+
+					<additionalConfig>
+						<!-- Enable annotation processing in Eclipse -->
+						<file>
+							<name>.factorypath</name>
+							<content>
+					<![CDATA[<factorypath><factorypathentry
+	kind="VARJAR" id="M2_REPO/com/sap/cloud/servicesdk/prov/annotation-processor/${sap.gateway.version}/annotation-processor-${sap.gateway.version}.jar"
+	enabled="true" runInBatchMode="false"/></factorypath>
+	 ]]>
+								</content>
+						</file>
+
+						<file>
+							<name>.settings/org.eclipse.jdt.core.prefs</name>
+							<content>
+					<![CDATA[
+eclipse.preferences.version=1
+org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.8
+org.eclipse.jdt.core.compiler.compliance=1.8
+org.eclipse.jdt.core.compiler.processAnnotations=enabled
+org.eclipse.jdt.core.compiler.source=1.8
+ ]]>
+							</content>
+						</file>
+					</additionalConfig>
+				</configuration>
+			</plugin>
+			
+			
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.10</version>
+				<configuration>
+					<wtpversion>2.0</wtpversion>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+					<projectNameTemplate>${project.artifactId}-${project.version}</projectNameTemplate>
+				</configuration>
+			</plugin>
+		</plugins>
+
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+	</build>
+	
+	<parent>
+     <groupId>org.springframework.boot</groupId>
+     <artifactId>spring-boot-starter-parent</artifactId>
+     <version>2.1.4.RELEASE</version>
+     <relativePath />
+  	</parent>
+
+
+  <dependencies>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+    </dependency>
+
+    <!-- SAP Gateway Runtime, provides OData services -->
+		<dependency>
+			<groupId>com.sap.cloud.servicesdk.prov</groupId>
+			<artifactId>odatav2</artifactId>
+			<version>${sap.gateway.version}</version>
+			<type>pom</type>
+		</dependency>
+		
+    
+	<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+	</dependency>
+	
+	
+	<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-webflux</artifactId>
+	</dependency>
+	
+	<dependency>
+   		<groupId>commons-configuration</groupId>
+   		<artifactId>commons-configuration</artifactId>
+   		<version>1.9</version>
+	</dependency>
+	
+	
+	<dependency>
+		<groupId>com.oracle.ojdbc</groupId>
+		<artifactId>ojdbc8</artifactId>
+		<version>19.3.0.0</version>
+	</dependency>
+	
+	<dependency>
+    <groupId>javax.xml.bind</groupId>
+    <artifactId>jaxb-api</artifactId>
+	</dependency>
+
+  </dependencies>
+</project>
